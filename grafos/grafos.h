@@ -49,6 +49,7 @@ void amplitudMejorado(int v_inicio,tipoGrafo *grafo);
 
 int ordenTop1(tipoGrafo *grafo);
 int ordenTop2(tipoGrafo *grafo);
+int buscarVerticeGradoCeroNoOrdenTop(tipoGrafo *g);
 
 /* Ejercicio 3: Caminos mínimos en grafos dirigidos */
 /* a) NO Ponderados */

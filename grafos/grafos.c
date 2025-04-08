@@ -13,14 +13,38 @@
 ***********************************************/
 void iniciar(tipoGrafo *g)
 {
-  for(int i=0;i<g->orden;i++){
-    g->directorio->alcanzado=NULL;
-  }
+  /*for(int i=0;i<g->orden;i++){
+    g->directorio[i].alcanzado=NULL;
+  }*/
+  int i;
+	pArco lsta;
+
+	for(i=1; i<=g->orden; i++){
+
+	g->directorio[i].alcanzado=0;
+	g->directorio[i].gradoEntrada=0;
+	g->directorio[i].ordenTop=0;
+	g->directorio[i].distancia=INF;
+	g->directorio[i].peso=INF;
+	g->directorio[i].anterior=0;
+
+	}
+	
+	for(i=1; i<=g->orden; i++){
+
+	lsta=g->directorio[i].lista;
+	
+	while(lsta!=NULL){
+
+	g->directorio[lsta->v].gradoEntrada++;
+	lsta=lsta->sig;
+	}
+	}	
 }
 void profundidadMejorado(int v_inicio,tipoGrafo *g)
 {
-  for(int i=0;i<g->orden;i++){
-    g->directorio->alcanzado=NULL;
+  for(int i=1;i<=g->orden;i++){
+    //g->directorio->alcanzado=;
   }
 }
 void amplitudMejorado(int v_inicio,tipoGrafo *g)
@@ -28,11 +52,59 @@ void amplitudMejorado(int v_inicio,tipoGrafo *g)
 }
 /* Ejercicio 2*/
 
-int ordenTop1(tipoGrafo *grafo)
+int ordenTop1(tipoGrafo *g)
 {
+    int i;
+    pArco p;
+    int v, w;
+
+    for (i = 1; i <= g->orden; i++) {
+        v = buscarVerticeGradoCeroNoOrdenTop(g);
+
+        if (v == -1) {
+            printf("Error: grafo con ciclo\n");
+            return;
+        }
+
+        g->directorio[v].ordenTop = i;
+        p = g->directorio[v].lista;
+
+        while (p != NULL) {
+            w = p->v;
+            g->directorio[w].gradoEntrada--;
+            p = p->sig;
+        }
+    }
+
 }
-int ordenTop2(tipoGrafo *grafo)
+int ordenTop2(tipoGrafo *g)
 {
+  int v, w;
+    Cola c;
+    creaVacia(&c);
+
+    for (v = 1; v <= g->orden; v++) {
+        if (g->directorio[v].gradoEntrada == 0) {
+            inserta(v, &c);
+        }
+    }
+
+    int orden = 1;
+    while (!vacia(&c)) {
+        v = suprime(&c);
+        g->directorio[v].ordenTop = orden;
+        orden++;
+        pArco p = g->directorio[v].lista;
+        while (p != NULL) {
+            w = p->v;
+            g->directorio[w].gradoEntrada--;
+
+            if (g->directorio[w].gradoEntrada == 0) {
+                inserta(w, &c);
+            }
+            p = p->sig;
+        }
+    }
 }
 /******************************************************************************/
 /* Recorrido en PROFUNDIDAD de un grafo. ¡CUIDADO! Depende del vertice inicial y del tipo de grafo */
@@ -73,7 +145,6 @@ void amplitud(int v_inicio,tipoGrafo *grafo)
 		}
 	}
   }
-	  
 }
 /**********************************************************************************************/
 /* Función auxiliar para ver el contenido de la estructura que representa un grafo en memoria */
@@ -103,4 +174,14 @@ void verGrafo(tipoGrafo *g)
        printf("\n");
    }
    printf("     +----+----+----+----+----+----+\n\n");
+}
+
+
+int buscarVerticeGradoCeroNoOrdenTop(tipoGrafo *g) {
+    for (int i = 1; i <= g->orden; i++) {
+        if (g->directorio[i].gradoEntrada == 0 && g->directorio[i].ordenTop == 0) {
+            return i; // Vértice encontrado
+        }
+    }
+    return -1; // No hay vértice con grado 0 y sin orden topológico
 }
