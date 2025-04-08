@@ -19,6 +19,9 @@ void iniciar(tipoGrafo *g)
 }
 void profundidadMejorado(int v_inicio,tipoGrafo *g)
 {
+  for(int i=0;i<g->orden;i++){
+    g->directorio->alcanzado=NULL;
+  }
 }
 void amplitudMejorado(int v_inicio,tipoGrafo *g)
 {
