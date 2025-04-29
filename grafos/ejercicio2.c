@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "grafos.h"
-//#include "monticulo.h"
+#include "monticulo.h"
 
 
 tipoGrafo *creaGrafoT26();
@@ -11,7 +11,7 @@ tipoGrafo *creaGrafoT26();
 int main(void)
 { tipoGrafo *gT26;
   int ciclico, i;
-  //Monticulo m;
+  Monticulo m;
   
 	gT26 = creaGrafoT26();
 	verGrafo(gT26);

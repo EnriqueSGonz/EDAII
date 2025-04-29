@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "cola.h"
+#include "pila.h"
 #include "grafos.h"
 /**********************************************
 / Inicia correctamente directorio de vertices *
@@ -184,4 +185,46 @@ int buscarVerticeGradoCeroNoOrdenTop(tipoGrafo *g) {
         }
     }
     return -1; // No hay vértice con grado 0 y sin orden topológico
+}
+
+void caminos2(int vInicio, tipoGrafo *g){
+  int v,w;
+  pArco  p;
+  Cola c;
+
+  iniciar(g);
+
+  colaCreaVacia(&c);
+  g->directorio[vInicio].distancia=0;
+  colaInserta(&c,vInicio);
+
+  while (!colaVacia(&c))  {
+    v=colaSuprime(&c);
+    p= g->directorio[v].lista;
+    while(p!=NULL){
+      w=p->v;
+      if(g->directorio[w].distancia == INF){
+        g->directorio[w].distancia=g->directorio[v].distancia+1;
+        g->directorio[w].anterior=v;
+        colaInserta(&c,w);
+      }
+      p=p->sig;
+    }
+  }
+}
+
+int costeyTrayectoria(int vIni, int vFin, tipoGrafo *g){
+  Pila vP;
+  int anterior=vFin;
+
+  pilaCreaVacia(&vP);
+  while(anterior!=vIni){
+    pilaInserta(&vP,anterior);
+    anterior=g->directorio[anterior].anterior;
+  }
+  while(!pilaVacia(&vP)){
+    printf("v%d ",pilaSuprime(&vP));
+  }
+  
+  return g->directorio[vFin].distancia;  
 }
