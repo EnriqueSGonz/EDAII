@@ -9,7 +9,8 @@ ejercicio2: ejercicio2.c grafos.h grafos.o cola.o
 # Para la ultima parte de ejercicio2.c necesitamos monticulo.o ...cambia la linea de ordenes...
 #ejercicio2: ejercicio2.c grafos.h grafos.o cola.o monticulo.o 
 #	gcc -g ejercicio2.c grafos.o cola.o monticulo.o -o ejercicio2
-
+ejercicio3a: ejercicio3a.c grafos.h grafos.o cola.o pila.o
+	gcc -g ejercicio3a.c grafos.o cola.o pila.o -o ejercicio3a
 
 
 
@@ -17,6 +18,8 @@ grafos.o: grafos.c grafos.h
 	gcc -g -c grafos.c
 cola.o: cola.c cola.h
 	gcc -g -c cola.c
+pila.o: pila.c pila.h
+	gcc -g -c pila.c
 # hay que modificar tipoElemento de monticulo 	
 # CUIDADO hay que cambiar tipoElemento de monticulo a tipoElementoM ....
 monticulo.o:monticulo.c monticulo.h
