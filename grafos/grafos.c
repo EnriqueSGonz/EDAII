@@ -179,12 +179,36 @@ void verGrafo(tipoGrafo *g)
 
 
 int buscarVerticeGradoCeroNoOrdenTop(tipoGrafo *g) {
-    for (int i = 1; i <= g->orden; i++) {
-        if (g->directorio[i].gradoEntrada == 0 && g->directorio[i].ordenTop == 0) {
-            return i; // Vértice encontrado
-        }
+  for (int i = 1; i <= g->orden; i++) {
+    if (g->directorio[i].gradoEntrada == 0 && g->directorio[i].ordenTop == 0) {
+      return i; // Vértice encontrado
     }
-    return -1; // No hay vértice con grado 0 y sin orden topológico
+  }
+  return -1; // No hay vértice con grado 0 y sin orden topológico
+}
+
+void caminos1(int vInicio, tipoGrafo *g){
+  pArco p;
+  int v,w;
+  int distancia=0;
+  iniciar(g);
+  g->directorio[vInicio].distancia=0;
+  for(distancia=0;distancia<g->orden;distancia++){
+    for (v = 1; v <= g->orden; v++) {
+      if ((!g->directorio[v].alcanzado) && g->directorio[v].distancia==distancia) {
+        g->directorio[v].alcanzado = 1;
+        p = g->directorio[v].lista;
+        while (p != NULL) {
+          w = p->v;
+          if (g->directorio[w].distancia == INF) {
+            g->directorio[w].distancia = g->directorio[v].distancia + 1;
+            g->directorio[w].anterior = v;
+          }
+          p = p->sig;
+        }
+      }
+    }
+  }
 }
 
 void caminos2(int vInicio, tipoGrafo *g){
@@ -212,6 +236,12 @@ void caminos2(int vInicio, tipoGrafo *g){
     }
   }
 }
+void dijkstra1(int vInicio, tipoGrafo *g){
+
+}
+void dijkstra2(int vInicio, tipoGrafo *g){
+
+}
 
 int costeyTrayectoria(int vIni, int vFin, tipoGrafo *g){
   Pila vP;
@@ -227,4 +257,29 @@ int costeyTrayectoria(int vIni, int vFin, tipoGrafo *g){
   }
   
   return g->directorio[vFin].distancia;  
+}
+
+
+void todosCaminosMin(int vIni, tipoGrafo *g){
+  int i;
+  pArco p;
+  Pila vP;
+  int anterior=vIni;
+
+  pilaCreaVacia(&vP);
+  while(anterior!=0){
+    pilaInserta(&vP,anterior);
+    anterior=g->directorio[anterior].anterior;
+  }
+  while(!pilaVacia(&vP)){
+    printf("v%d ",pilaSuprime(&vP));
+  }
+  
+  for(i=1;i<=g->orden;i++){
+    p=g->directorio[i].lista;
+    while(p!=NULL){
+      printf(" -> %d",p->v);
+      p=p->sig;
+    }
+  }
 }
