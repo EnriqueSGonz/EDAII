@@ -20,6 +20,8 @@ cola.o: cola.c cola.h
 	gcc -g -c cola.c
 pila.o: pila.c pila.h
 	gcc -g -c pila.c
+conjuntos.o: conjuntos.c conjuntos.h
+	gcc -g -c conjuntos.c
 # hay que modificar tipoElemento de monticulo 	
 # CUIDADO hay que cambiar tipoElemento de monticulo a tipoElementoM ....
 monticulo.o:monticulo.c monticulo.h
