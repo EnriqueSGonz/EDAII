@@ -6,7 +6,7 @@
 
 int main(void)
 { tipoArbolBB a=NULL;
-  tipoNodo *buscado=NULL;
+  tipoNodo *buscado;
   int encontrado;
 
  insertar(&a,25);
