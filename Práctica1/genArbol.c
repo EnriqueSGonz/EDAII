@@ -81,7 +81,7 @@ int evaluar(Arbol a)
   }
 }
 
-Arbol construccionArbolBin(char *exPrefija, char *exInfija)
+/*Arbol construccionArbolBin(char *exPrefija, char *exInfija)
 {
   Pila p = NULL;
   Arbol a = NULL;
@@ -100,4 +100,40 @@ Arbol construccionArbolBin(char *exPrefija, char *exInfija)
     {
     }
   }
+}*/
+Arbol construccionArbolBinRec(char *preorden, char *inorden, int inicio, int fin, int *indicePre) {
+  if (inicio > fin) {
+    return NULL;
+  }
+
+  // Crear el nodo raíz con el elemento actual de preorden
+  char raizInfo = preorden[*indicePre];
+  (*indicePre)++;
+  Arbol raiz = creaNodo(raizInfo);
+
+  // Si el subarreglo tiene un solo elemento, es una hoja
+  if (inicio == fin) {
+    return raiz;
+  }
+
+  // Buscar la posición de la raíz en el inorden
+  int i;
+  for (i = inicio; i <= fin; i++) {
+    if (inorden[i] == raizInfo) {
+      break;
+    }
+  }
+
+  // Construir subárbol izquierdo y derecho recursivamente
+  raiz->izq = construccionArbolBinRec(preorden, inorden, inicio, i - 1, indicePre);
+  raiz->der = construccionArbolBinRec(preorden, inorden, i + 1, fin, indicePre);
+
+  return raiz;
+}
+
+Arbol construccionArbolBin(char *exPrefija, char *exInfija) {
+  int n = 0;
+  while (exInfija[n] != '\0') n++; // Calcular longitud
+  int indicePre = 0;
+  return construccionArbolBinRec(exPrefija, exInfija, 0, n - 1, &indicePre);
 }

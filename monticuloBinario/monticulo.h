@@ -36,4 +36,6 @@ int esMonticulo(Monticulo m);
 
 void heapsort1(int *vector, int n);
 
+void heapsort(Monticulo *m);
+
 void verMonticulo(Monticulo *m);

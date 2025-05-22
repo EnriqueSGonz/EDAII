@@ -70,6 +70,38 @@ int eliminarMinimo(Monticulo *m, tipoElemento *minimo){
         return 0;
     }
 }
+void heapsort1(int *vector, int n){
+    Monticulo m;
+    tipoElemento elemento;
+    int i;
+
+    iniciaMonticulo(&m);
+    m.tamanno = 0;
+
+    for (i = 0; i < n; i++) {
+        elemento.clave = vector[i];
+        elemento.informacion = 0;
+        insertar(elemento, &m);
+    }
+
+    for (i = n - 1; i >= 0; i--) {
+        eliminarMinimo(&m, &elemento);
+        vector[i] = elemento.clave;
+    }
+}
+
+void heapsort(Monticulo *m){
+    tipoElemento elemento;
+    int i;
+
+    for (i = m->tamanno; i >= 1; i--) {
+        elemento = m->elemento[i];
+        m->elemento[i] = m->elemento[1];
+        m->elemento[1] = elemento;
+        m->tamanno--;
+        filtradoDescendente(m, 1);
+    }
+}
 
 void verMonticulo(Monticulo *m){
     int i;
