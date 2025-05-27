@@ -79,8 +79,8 @@ int insertar(tipoArbolBB *raiz,tipoClave clave, tipoInfo info)
 
 int eliminar(tipoArbolBB *raiz, tipoClave clave)
 {	int nodoEliminado=0;
-	while(clave->izq == clave){
-		if (clave->izq == NULL) return 0;
+	while((*raiz)->izq->clave == clave){
+		if ((*raiz)->izq ==NULL) return 0;
 		else if (clave < (*raiz)->clave)
 			return eliminar(&((*raiz)->izq),clave);
 		else if (clave > (*raiz)->clave)
