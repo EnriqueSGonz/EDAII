@@ -38,4 +38,18 @@ int insertaReg(char *fSecuencial, tipoAlumno *reg){
 	return numReg++;
 	
 }
-int modificarRegistro(char *fSecuencial, char *dni, char *provincia){}
+int modificarRegistro(char *fSecuencial, char *dni, char *provincia){
+	FILE *file = fopen(fSecuencial, "rb+");
+	tipoAlumno reg;
+	int pos = buscaReg(file, &reg, dni);
+	if (pos == -1) {
+		fclose(file);
+		return -1; // Registro no encontrado
+	}
+	
+	fseek(file, pos * sizeof(tipoAlumno), SEEK_SET);
+	strcpy(reg.provincia, provincia);
+	fwrite(&reg, sizeof(tipoAlumno), 1, file);
+	fclose(file);
+	return pos; // Retorna la posición del registro modificado
+}

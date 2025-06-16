@@ -130,7 +130,6 @@ Arbol construccionArbolBinRec(char *preorden, char *inorden, int inicio, int fin
 
   return raiz;
 }
-
 Arbol construccionArbolBin(char *exPrefija, char *exInfija) {
   int n = 0;
   while (exInfija[n] != '\0') n++; // Calcular longitud

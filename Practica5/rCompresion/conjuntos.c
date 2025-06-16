@@ -21,12 +21,12 @@ tipoConjunto buscar(tipoElemento x, particion P){
 tipoConjunto buscarCC(tipoElemento x, particion P){
 	if((P[x]<0)) return x;
 	else{ 
-		P[x]=buscar(P[x],P);
+		P[x]=buscarCC(P[x],P);
 	return P[x];
 	}
 }
 
-int unir(tipoConjunto x, tipoConjunto y, particion P){
+/*int unir(tipoConjunto x, tipoConjunto y, particion P){
 	if((P[x]<0) && (P[y]<0)){
 		if(P[x]<=P[y]){
 			P[x]=P[x]+P[y];
@@ -37,6 +37,23 @@ int unir(tipoConjunto x, tipoConjunto y, particion P){
 		}
 		return 1; 
 	}else return 0;
+}*/
+
+int unir(tipoConjunto x, tipoConjunto y, particion P){
+	x = buscarCC(x, P); // Buscar raíz de x
+    y = buscarCC(y, P); // Buscar raíz de y
+
+    if (x == y) return 0; // Ya están en el mismo conjunto
+
+    // Unión por tamaño
+    if (P[x] <= P[y]) { 
+        P[x] += P[y]; // Actualizar tamaño del conjunto
+        P[y] = x;
+    } else { 
+        P[y] += P[x]; 
+        P[x] = y;
+    }
+    return 1;
 }
 
 //

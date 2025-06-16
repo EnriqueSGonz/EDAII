@@ -9,7 +9,6 @@
 Arbol creaNodo(tipoInfo info)
 {
   tipoNodo *nuevo;
-
   //   nuevo =(tipoNodo *)calloc(1, sizeof(tipoNodo));
   if ((nuevo = (tipoNodo *)malloc(sizeof(tipoNodo))) == NULL)
     return NULL;
@@ -21,11 +20,9 @@ Arbol creaNodo(tipoInfo info)
     return nuevo;
   }
 }
-
 //
 // Recorrido en amplitud o por niveles: necesita una cola de punteros a nodos de árbol binario!!!
 //
-
 void amplitud(Arbol raiz)
 {
   Cola c;
@@ -189,8 +186,8 @@ int equivalentes(Arbol r1, Arbol r2)
   if (r1 == NULL || r2 == NULL)
     return 0;
   return (r1->info == r2->info) &&
-         equivalentes(r1->izq, r2->izq) &&
-         equivalentes(r1->der, r2->der);
+        equivalentes(r1->izq, r2->izq) &&
+        equivalentes(r1->der, r2->der);
 }
 
 // 📌 Devuelve el árbol espejo de otro árbol (invertido)

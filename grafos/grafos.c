@@ -409,7 +409,6 @@ void caminos2(int vInicio, tipoGrafo *g)
 {
   int v, w;
   pArco p;
-
     return -1; // No hay vértice con grado 0 y sin orden topológico
 }
 

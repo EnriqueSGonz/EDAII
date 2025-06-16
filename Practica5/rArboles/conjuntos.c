@@ -7,22 +7,22 @@
 /// ......................................................................
 
 void crea(particion P){
-	int i;
-	for(i=0;i<MAXIMO;i++){
-		P[i]=i;
-	}
+    int i;
+    for(i=0;i<MAXIMO;i++) P[i]=0;
 }
 
 tipoConjunto buscar(tipoElemento x, particion P){
-	if((P[x]==x)) return x;
+    if((P[x]==x)) return x;
 	else return buscar(P[x],P);
 }
 
 int unir(tipoConjunto x, tipoConjunto y, particion P){
-	if((P[x]==x) && (P[y]==y)){
-		P[y]=x;
-		return 1; 
-	}else return 0;
+    if(P[x]==0 || P[y]==0){
+        return 0;
+    }else{
+        P[y]=x;
+        return 1;
+    }
 }
 
 //

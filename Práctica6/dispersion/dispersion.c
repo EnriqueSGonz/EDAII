@@ -81,8 +81,22 @@ int creaHash(char *fichEntrada,char *fichHash){
 	fclose(fHash);
 	return numRegDesb;
 }
+
+int buscaReg(FILE *fHash, tipoAlumno *reg,char *dni){
+	tipoCubo cubo;
+	int i,nCubo;
+
+	nCubo=atoi(dni)%CUBOS;
+	fseek(fHash,nCubo*sizeof(tipoCubo),SEEK_SET);
+	fread(&cubo,sizeof(tipoCubo),1,fHash);
+	for(i=0;i<cubo.numRegAsignados;i++){
+		if(strcmp(cubo.reg[i].dni,dni)==0){
+			*reg=cubo.reg[i];
+			return 1;
+		}
+	}
+	return 0;
 }
-int buscaReg(FILE *fHash, tipoAlumno *reg,char *dni){}
 
 
 

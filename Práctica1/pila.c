@@ -15,7 +15,7 @@ int pilaCreaVacia(Pila *p)
 
 int pilaVacia(Pila *p)
 {
-   return (*p==NULL);
+    return (*p==NULL);
 }
 
 int pilaInserta(Pila *p,tipoElemento elemento)
@@ -27,7 +27,7 @@ int pilaInserta(Pila *p,tipoElemento elemento)
     }else if(NULL==(nuevaCelda=(tipoCelda *)malloc(sizeof(tipoCelda)))){
         return -2;
     }else{
-        nuevaCelda->elemento = elemento;  // Asignamos el elemento
+    nuevaCelda->elemento = elemento;  // Asignamos el elemento
     nuevaCelda->sig = *p;  // El nuevo nodo apunta al nodo anterior
     *p = nuevaCelda;  // La pila ahora apunta al nuevo nodo
     return 0; 

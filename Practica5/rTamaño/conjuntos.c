@@ -17,7 +17,7 @@ tipoConjunto buscar(tipoElemento x, particion P){
 	if((P[x]<0)) return x;
 	else return buscar(P[x],P);
 }
-
+/*
 int unir(tipoConjunto x, tipoConjunto y, particion P){
 	if((P[x]<0) && (P[y]<0)){
 		if(P[x]<=P[y]){
@@ -29,7 +29,25 @@ int unir(tipoConjunto x, tipoConjunto y, particion P){
 		}
 		return 1; 
 	}else return 0;
+}*/
+
+int unir(tipoConjunto x, tipoConjunto y, particion P){
+    x = buscar(x, P); // Buscar raíz de x
+    y = buscar(y, P); // Buscar raíz de y
+
+    if (x == y) return 0; // Ya están en el mismo conjunto
+
+    // Unión por tamaño
+    if (P[x] <= P[y]) { 
+        P[x] += P[y]; // Actualizar tamaño del conjunto
+        P[y] = x;
+    } else { 
+        P[y] += P[x]; 
+        P[x] = y;
+    }
+    return 1;
 }
+
 
 //
 // Función auxiliar para ver contenido de Partición 
